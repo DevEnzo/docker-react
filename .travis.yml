@@ -8,5 +8,18 @@ before_install:
 
 script:
   - docker run -e CI=true devenzo/docker-react npm run test -- --coverage
-  
+
 language: generic
+
+deploy:
+  edge: true
+  provider: elasticbeanstalk
+  region: "us-east-1"
+  app: "docker-react"
+  env: "DockerReact-env"
+  bucket_name: "elasticbeanstalk-us-east-1-875664484802"
+  bucket_path: "docker-react"
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key: $AWS_SECRET_KEY
